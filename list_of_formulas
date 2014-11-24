@@ -8,3 +8,6 @@
 +*123123
 ++1234567890
 **012
+
+Copy and paste it into a text editor. At the end, don't put a return. 
+If you do, python will read that empty line as an element ("") and puts it into the list.
