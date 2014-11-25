@@ -44,25 +44,16 @@ def guess_update(random_fmla, partial_fmla, symbol):
     print answer
     return answer, partial_fmla
 
-'''
-def guess_update(random_fmla, partial_fmla, symbol, attempts):
-    answer = ""
-    while attempts < max_guess or partial_fmla == random_fmla:
-        if symbol not in random_fmla or symbol in partial_fmla:
-            answer = partial_fmla
-            attempts += 1
-            print "You have", attempts, "wrong guesses."
-            print "You have", int(max_guess) - attempts, "left."
+def lucky_num1(random_fmla):
+    lucky_number1 = ""
+    for i in range(2, len(random_fmla)):
+        if random_fmla[i] % 2 == 0:
+            lucky_number1 += "0"
         else:
-            if symbol in random_fmla and symbol not in partial_fmla:
-                for i in range(len(random_fmla)):
-                    if symbol == random_fmla[i]:
-                        answer += random_fmla[i]
-                    else:
-                        answer += partial_fmla[i]
+            luck_number1 += "1"
 
-    print answer
-'''
+    print list(lucky_number1)
+            
 
 
         
@@ -79,10 +70,10 @@ partial_fmla = len(random_fmla)*"-"
 max_guess = raw_input("Maximum wrong-guesses you want to have allowed?")
 max_number_guess(max_guess)
 
-'''
-guess_update(random_fmla, partial_fmla, symbol, attempts)
+lucky_num1(random_fmla)
 '''
 while attempts < max_guess or partial_fmla == random_fmla:
     symbol = guess_validator()
     guess_update(random_fmla, partial_fmla, symbol)
     attempts += 1
+'''
