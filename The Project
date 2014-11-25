@@ -1,4 +1,4 @@
-defdef read_string_list_from_file(the_file):    
+def read_string_list_from_file(the_file):    
     fileRef = open("list_of_formulas.txt","r") # opening file to be read
     localList=[]
     for line in fileRef:
