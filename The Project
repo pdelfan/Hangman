@@ -70,7 +70,7 @@ partial_fmla = len(random_fmla)*"-"
 max_guess = raw_input("Maximum wrong-guesses you want to have allowed?")
 max_number_guess(max_guess)
 
-lucky_num1(random_fmla)
+lucky_num1(random_fmla) #not complete
 '''
 while attempts < max_guess or partial_fmla == random_fmla:
     symbol = guess_validator()
