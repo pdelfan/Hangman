@@ -1,4 +1,4 @@
-def read_string_list_from_file(the_file):    
+defdef read_string_list_from_file(the_file):    
     fileRef = open("list_of_formulas.txt","r") # opening file to be read
     localList=[]
     for line in fileRef:
@@ -47,12 +47,23 @@ def guess_update(random_fmla, partial_fmla, symbol):
 def lucky_num1(random_fmla):
     lucky_number1 = ""
     for i in range(2, len(random_fmla)):
-        if random_fmla[i] % 2 == 0:
+        if int(random_fmla[i]) % 2 == 0:
             lucky_number1 += "0"
         else:
-            luck_number1 += "1"
+            lucky_number1 += "1"
 
-    print list(lucky_number1)
+    print list(int(lucky_number1))
+
+def convert_bin_list_to_dec(lucky_num1):
+    newstring = ""
+    answer = str(lucky_num1)[1:-1]
+    for i in range(len(answer)):
+        if answer[i].isdigit():
+            newstring += answer[i]
+        else:
+            newstring += ""
+
+    print int(newstring, 2)
             
 
 
@@ -70,10 +81,13 @@ partial_fmla = len(random_fmla)*"-"
 max_guess = raw_input("Maximum wrong-guesses you want to have allowed?")
 max_number_guess(max_guess)
 
-lucky_num1(random_fmla) #not complete
+
 '''
 while attempts < max_guess or partial_fmla == random_fmla:
     symbol = guess_validator()
     guess_update(random_fmla, partial_fmla, symbol)
     attempts += 1
 '''
+
+lucky_num1(random_fmla)
+convert_bin_list_to_dec(lucky_num1)
