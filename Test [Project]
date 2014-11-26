@@ -20,6 +20,7 @@ def max_number_guess(max_guess):
     
     return max_guess
 
+
 def guess_validator():
     print "You can use digits 0 to 9 and symbols + *"
     symbol = raw_input("Please enter an operation symbol or digit:")
@@ -28,6 +29,7 @@ def guess_validator():
         symbol = raw_input("Please enter an operation symbol or digit:")
 
     return symbol
+
 
 global partial_fmla
 global answer
@@ -44,28 +46,8 @@ def guess_update(random_fmla, partial_fmla, symbol, answer):
                 else:
                     answer += partial_fmla[i]
     print answer
-    return answer
     return partial_fmla
 
-'''
-def guess_update(random_fmla, partial_fmla, symbol, attempts):
-    answer = ""
-    while attempts < max_guess or partial_fmla == random_fmla:
-        if symbol not in random_fmla or symbol in partial_fmla:
-            answer = partial_fmla
-            attempts += 1
-            print "You have", attempts, "wrong guesses."
-            print "You have", int(max_guess) - attempts, "left."
-        else:
-            if symbol in random_fmla and symbol not in partial_fmla:
-                for i in range(len(random_fmla)):
-                    if symbol == random_fmla[i]:
-                        answer += random_fmla[i]
-                    else:
-                        answer += partial_fmla[i]
-
-    print answer
-'''
 
 #######################################################################################
         
@@ -97,7 +79,11 @@ guess_update(random_fmla, partial_fmla, symbol, attempts)
 '''
 
 while attempts < max_guess or partial_fmla == random_fmla:
-    symbol = guess_validator()
+    symbol= guess_validator()
     guess_update(random_fmla, partial_fmla, symbol, answer)
     attempts += 1
 
+'''
+new partial formula
+partial formula= new partial formula
+'''
