@@ -14,11 +14,11 @@ def read_string_list_from_file(the_file):
 #For the number of guesses. 
 
 def max_number_guess(max_guess):
-    while max_guess.isdigit()==False or max_guess ==0:
+    while max_guess.isdigit()== False or max_guess < 1:
         print "Please type a number:"
-        max_guess = raw_input("Maximum wrong-guesses you want to have allowed?")
+        max_guess = input("Maximum wrong-guesses you want to have allowed?")
     
-    return max_guess
+    return int(max_guess)
 
 
 def guess_validator():
@@ -32,21 +32,23 @@ def guess_validator():
 
 
 global partial_fmla
-global answer
 answer= ""
 
-def guess_update(random_fmla, partial_fmla, symbol, answer):
-    if symbol not in random_fmla or symbol in partial_fmla: #symbol is the guess |  partial_fmla is ----------
-        answer = partial_fmla
+def guess_update(random_fmla, partial_fmla, symbol):
+    answer = '';
+    #if symbol not in random_fmla or symbol in partial_fmla: #symbol is the guess |  partial_fmla is ----------
+    if symbol in random_fmla:
+        for i in range(len(random_fmla)):
+            if symbol == random_fmla[i]:
+                answer += random_fmla[i]
+            else:
+                answer += partial_fmla[i]
     else:
-        if symbol in random_fmla and symbol not in partial_fmla:
-            for i in range(len(random_fmla)):
-                if symbol == random_fmla[i]:   # **1234
-                    answer += random_fmla[i]   # "" +  **1234  
-                else:
-                    answer += partial_fmla[i]
+        answer = partial_fmla
+
     print answer
-    return partial_fmla
+    print
+    return answer
 
 
 #######################################################################################
@@ -57,9 +59,8 @@ import random
 
 random_fmla = (random.choice(listStrings)) #chooses a formula randomly
 
-print "random formula:", random_fmla
+print "random formula:%s\n\n" % random_fmla
 
-print
 
 attempts = 0
 
@@ -69,21 +70,16 @@ max_guess = raw_input("Maximum wrong-guesses you want to have allowed?")
 
 print
 
-max_number_guess(max_guess)
+max_guess = max_number_guess(max_guess)
 
 print
 
-
-'''
-guess_update(random_fmla, partial_fmla, symbol, attempts)
-'''
-
-while attempts < max_guess or partial_fmla == random_fmla:
+while attempts < max_guess and partial_fmla != random_fmla:
     symbol= guess_validator()
-    guess_update(random_fmla, partial_fmla, symbol, answer)
+    partial_fmla = guess_update(random_fmla, partial_fmla, symbol)
     attempts += 1
+    print 'Number of allowable attempts:', max_guess
+    print 'Number of attempts made:', attempts
 
-'''
-new partial formula
-partial formula= new partial formula
-'''
+
+
