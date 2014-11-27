@@ -16,13 +16,15 @@ def read_string_list_from_file(the_file):
 def max_number_guess(max_guess):
     while max_guess.isdigit()== False or max_guess < 1:
         print "Please type a number:"
-        max_guess = input("Maximum wrong-guesses you want to have allowed?")
+        max_guess = raw_input("Maximum wrong-guesses you want to have allowed?")
+        print
     
     return int(max_guess)
 
 
 def guess_validator():
     print "You can use digits 0 to 9 and symbols + *"
+    print
     symbol = raw_input("Please enter an operation symbol or digit:")
     while len(symbol) > 1 or symbol not in ["+", "*", "0", "1","2", "3", "4", "5", "6", "7", "8", "9"]:
         print "That is not a symbol, digit or too many characters."
@@ -47,10 +49,44 @@ def guess_update(random_fmla, partial_fmla, symbol):
     else:
         answer = partial_fmla
 
-    print answer
     print
+    print "The formula you have guessed so far is: ", answer
     return answer
 
+def lucky_num1(random_fmla):
+    lucky_number1 = ""
+    for i in range(2, len(random_fmla)):
+        if int(random_fmla[i]) % 2 == 0:
+            lucky_number1 += "0"
+        else:
+            lucky_number1 += "1"
+
+    return int(lucky_number1, 2)
+
+def lucky_num2(random_fmla):
+    newstring = ""
+    newList = []
+    for i in range(2, len(random_fmla)):
+        newstring += random_fmla[i] + "+"
+    newstring =  newstring[0:len(newstring)-1]
+    "print newstring" # Creates a new string with + between the numbers
+    i = 0
+    while i < len(newstring):
+        test =  newstring[i:len(newstring)]
+        i += 2
+        newList.append(test)
+        "print  newList" #Slices the string and creates a new element for every digit.
+    for i in range(len(newList)):
+        newList[i] = eval(newList[i])
+        "print newList" #Evaluates the expression for each element in the list
+    i = 0
+    add_list = 0
+    for i in range(len(newList)):
+        add_list += newList[i]
+        "print add_list" #Adds the total sum of the list
+
+    return add_list
+    
 
 #######################################################################################
         
@@ -62,29 +98,62 @@ random_fmla = (random.choice(listStrings)) #chooses a formula randomly
 
 print "random formula:%s\n\n" % random_fmla
 
+points = random.randint(3,6)
 
-attempts = 0
+wrong_guess = 0
+
+history_of_guesses = []
 
 partial_fmla = len(random_fmla)*"-"
+
+print "You points so far are: ", points
+
+print 
 
 print "The formula you will have to guess has", len(random_fmla) ,"symbols: ", partial_fmla
 
 print
 
-max_guess = raw_input("Maximum wrong-guesses you want to have allowed?")
-
-print
+max_guess = raw_input("Maximum wrong-guesses you want to have allowed? ")
 
 max_guess = max_number_guess(max_guess)
 
 print
 
-while attempts < max_guess and partial_fmla != random_fmla:
+while wrong_guess < max_guess and partial_fmla != random_fmla:
     symbol= guess_validator()
-    partial_fmla = guess_update(random_fmla, partial_fmla, symbol)
-    attempts += 1
-    print 'Number of allowable attempts left:', max_guess-attempts
-    print 'Number of attempts made:', attempts
+    if symbol in random_fmla:
+        partial_fmla = guess_update(random_fmla, partial_fmla, symbol)
+    else:
+        wrong_guess += 1
+        history_of_guesses.append(symbol)
+        
+        
+    print
+    print 'Number of allowable attempts left:', max_guess-wrong_guess
+    print 'Number of wrong guesses made:', wrong_guess
     print
 
+if partial_fmla == random_fmla:
+    print "You have won 2 points"
+    points += 2
+    print "Your total points is now: ", points
+else:
+    print "You have lost 2 points!"
+    points += -2
+    print "Your total points is now: ", points
+
+print
+
+print "Your first lucky number is: ", lucky_num1(random_fmla)
+
+print
+
+print "Your second lucky number is: ", lucky_num2(random_fmla)
+
+print
+
+print "This is the history of your wrong guesses.", history_of_guesses
+    
+    
 
