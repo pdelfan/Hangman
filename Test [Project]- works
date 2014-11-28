@@ -11,7 +11,7 @@ def read_string_list_from_file(the_file):
 #For the number of guesses. 
 
 def max_number_guess(max_guess):
-    while max_guess.isdigit()== False or max_guess < 1:
+    while max_guess.isdigit()== False or max_guess == "0":
         print "Please type a number:"
         max_guess = raw_input("Maximum wrong-guesses you want to have allowed?")
         print
@@ -200,6 +200,8 @@ while points > 2 and want_play in ["Y", "y"]:
         points += -2
         print "\nYour total points is now: ", points
         print "\nThis is the history of your wrong guesses.", history_of_guesses
+        print "\nYour first lucky number is: ", lucky_num1(random_fmla)
+        print "\nYour second lucky number is: ", lucky_num2(random_fmla)
         print "\nGame over."
         
 
