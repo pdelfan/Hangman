@@ -38,7 +38,7 @@ global partial_fmla
 answer= ""
 
 def guess_update(random_fmla, partial_fmla, symbol):
-    answer = '';
+    answer = ""
     #if symbol not in random_fmla or symbol in partial_fmla: #symbol is the guess |  partial_fmla is ----------
     if symbol in random_fmla:
         for i in range(len(random_fmla)):
@@ -86,6 +86,14 @@ def lucky_num2(random_fmla):
         "print add_list" #Adds the total sum of the list
 
     return add_list
+
+def play_update(want_play):
+    while len(want_play) > 1 or want_play not in ["Y", "y", "N", "n"]:
+        print "Please answer correctly."
+        want_play = raw_input("Do you want to play? Yes = y No = n: ")
+
+    return want_play
+                          
     
 
 #######################################################################################
@@ -97,6 +105,8 @@ import random
 random_fmla = (random.choice(listStrings)) #chooses a formula randomly
 
 print "random formula:%s\n\n" % random_fmla
+
+global points
 
 points = random.randint(3,6)
 
@@ -110,50 +120,102 @@ print "You points so far are: ", points
 
 print 
 
-print "The formula you will have to guess has", len(random_fmla) ,"symbols: ", partial_fmla
+global want_play
+
+want_play = raw_input("Do you want to play? Yes = y No = n: ")
+
+want_play = play_update(want_play)
+
+game_number = 1
 
 print
 
-max_guess = raw_input("Maximum wrong-guesses you want to have allowed? ")
+while 10 > points > 0 and want_play in ["Y", "y"]:
+    print "Playing game #: ", game_number
+    print "-----------------------------------------------"
+    max_guess = raw_input("Maximum wrong-guesses you want to have allowed? ")
+    max_guess = max_number_guess(max_guess)
+    print
+    print "The formula you will have to guess has", len(random_fmla) ,"symbols: ", partial_fmla
+    print
+    while wrong_guess < max_guess and partial_fmla != random_fmla:
+        symbol= guess_validator()
+        if symbol in random_fmla:
+            partial_fmla = guess_update(random_fmla, partial_fmla, symbol)
+        else:
+            wrong_guess += 1
+            history_of_guesses.append(symbol)
+        
 
-max_guess = max_number_guess(max_guess)
+        print
+        print 'Number of allowable attempts left:', max_guess-wrong_guess
+        print 'Number of wrong guesses made:', wrong_guess
+        print
 
-print
-
-while wrong_guess < max_guess and partial_fmla != random_fmla:
-    symbol= guess_validator()
-    if symbol in random_fmla:
-        partial_fmla = guess_update(random_fmla, partial_fmla, symbol)
+    if partial_fmla == random_fmla:
+        print "##You have correctly guessed the formula!##", partial_fmla
+        print
+        print "You have won 2 points"
+        points += 2
+        print "Your total points is now: ", points
+        print
+        print "You need atleast 1 point to continue the game."
     else:
-        wrong_guess += 1
-        history_of_guesses.append(symbol)
-        
-        
+        print "You have lost 2 points!"
+        points += -2
+        print "Your total points is now: ", points
+        print
+        print "You need atleast 1 point to continue the game."
+        print
+
     print
-    print 'Number of allowable attempts left:', max_guess-wrong_guess
-    print 'Number of wrong guesses made:', wrong_guess
+        
+    want_play = raw_input("Do you want to play? Yes = y No = n: ")
+
+    want_play = play_update(want_play)
+
+    random_fmla = (random.choice(listStrings))
+
+    partial_fmla = len(random_fmla)*"-"
+
+    wrong_guess = 0
+
+    i = 0
+
+    game_number += 1
+
     print
 
-if partial_fmla == random_fmla:
-    print "You have won 2 points"
-    points += 2
-    print "Your total points is now: ", points
+
+if points >= 10:
+    print
+    print "##Congratulations, you have 10 points##"
+    print
+    print "Your first lucky number is: ", lucky_num1(random_fmla)
+    print
+    print "Your second lucky number is: ", lucky_num2(random_fmla)
+    print
+    print "This is the history of your wrong guesses.", history_of_guesses
+    print
+    print "Game over"
+elif points <=  0:
+    print
+    print "Sorry you don't have enough points to continue the game :("
+    print
+    print "Your first lucky number is: ", lucky_num1(random_fmla)
+    print
+    print "Your second lucky number is: ", lucky_num2(random_fmla)
+    print
+    print "This is the history of your wrong guesses.", history_of_guesses
+    print
+    print "Game over"
 else:
-    print "You have lost 2 points!"
-    points += -2
-    print "Your total points is now: ", points
-
-print
-
-print "Your first lucky number is: ", lucky_num1(random_fmla)
-
-print
-
-print "Your second lucky number is: ", lucky_num2(random_fmla)
-
-print
-
-print "This is the history of your wrong guesses.", history_of_guesses
-    
-    
+    print
+    print "Your first lucky number is: ", lucky_num1(random_fmla)
+    print
+    print "Your second lucky number is: ", lucky_num2(random_fmla)
+    print
+    print "This is the history of your wrong guesses.", history_of_guesses
+    print
+    print "Game over"
 
