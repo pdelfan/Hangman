@@ -211,11 +211,3 @@ while points > 2 and want_play in ["Y", "y"]:
     i = 0
     game_number += 1
     print
-
-
-if points <=  0:
-    print "\nSorry you don't have enough points to continue the game :("
-    print "\nour first lucky number is: ", lucky_num1(random_fmla)
-    print "\nYour second lucky number is: ", lucky_num2(random_fmla)
-    print "\nThis is the history of your wrong guesses.", history_of_guesses
-    print "\nGame over"
