@@ -93,10 +93,27 @@ def expanded_formula(random_fmla):
         else:
             expanded= expanded + random_fmla[i] + random_fmla[1]
             n= n+1
-    print expanded[0:len(expanded)-1]
+    expand= (expanded[0:len(expanded)-1])
+    return expand
 
-    
-    
+def eval_expanded_formula(random_fmla):
+    tmp = list(random_fmla)
+    calculated_num = int(tmp[2])
+    for i in range(3, len(random_fmla)):
+        operator = ''
+        if i%2 == 1:
+            operator = tmp[0]
+        else:
+            operator = tmp[1]
+
+        if operator == '+':
+            calculated_num += int(random_fmla[i])
+        else:
+            calculated_num *= int(random_fmla[i])
+
+    return calculated_num
+
+        
 
 #######################################################################################
         
@@ -130,7 +147,7 @@ game_number = 1
 
 print
 
-while 10 > points > 0 and want_play in ["Y", "y"]:
+while points > 0 and want_play in ["Y", "y"]:
     print "Playing game #: ", game_number
     print "-----------------------------------------------"
     print "\nrandom formula:%s\n\n" % random_fmla
@@ -158,8 +175,18 @@ while 10 > points > 0 and want_play in ["Y", "y"]:
         print "Your total points is now: ", points
         print "\nYou need atleast 1 point to continue the game."
         print "\nExpanded formula:", expanded_formula(random_fmla)
-        exp_guess= input("Calculate the expanded formula:") ############# continue change function
-        
+        result = eval_expanded_formula(random_fmla)
+        print "The result is %s\n" % result
+        print
+        '''
+        if eval(expanded_formula(random_fmla))== int(exp_guess):
+                          points +=12
+                          print "\nCorrect!"
+                        
+                          
+        else: points -=2
+        print "\nGame over"
+        '''
     else:
         print "\nYou have lost 2 points!"
         points += -2
@@ -176,7 +203,7 @@ while 10 > points > 0 and want_play in ["Y", "y"]:
     wrong_guess = 0
     i = 0
     game_number += 1
-    printf
+    print
 
 
 if points <=  0:
