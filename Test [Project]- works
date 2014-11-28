@@ -203,8 +203,6 @@ while points > 2 and want_play in ["Y", "y"]:
         print "\nYour second lucky number is: ", lucky_num2(random_fmla)
         print "\nGame over."
         
-
-    
         
     want_play = raw_input("Do you want to play? Yes = y No = n: ")
     want_play = play_update(want_play)
