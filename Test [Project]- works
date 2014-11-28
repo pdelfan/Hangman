@@ -133,7 +133,6 @@ history_of_guesses = []
 
 partial_fmla = len(random_fmla)*"-"
 
-print "You points so far are: ", points
 
 print 
 
