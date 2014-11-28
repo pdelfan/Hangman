@@ -147,16 +147,17 @@ game_number = 1
 
 print
 
-while points > 0 and want_play in ["Y", "y"]:
+while points > 2 and want_play in ["Y", "y"]:
     print "Playing game #: ", game_number
-    print "-----------------------------------------------"
+    print "\nYou points so far are: ", points
+    print "\n-----------------------------------------------"
     print "\nrandom formula:%s\n\n" % random_fmla
     max_guess = raw_input("Maximum wrong-guesses you want to have allowed? ")
     max_guess = max_number_guess(max_guess)
     print
     print "The formula you will have to guess has", len(random_fmla) ,"symbols: ", partial_fmla
     print
-    while wrong_guess < max_guess and partial_fmla != random_fmla:
+    while wrong_guess < max_guess and partial_fmla != random_fmla and points > 2:
         symbol= guess_validator()
         if symbol in random_fmla:
             partial_fmla = guess_update(random_fmla, partial_fmla, symbol)
@@ -173,25 +174,31 @@ while points > 0 and want_play in ["Y", "y"]:
         print "\nYou have won 2 points"
         points += 2
         print "Your total points is now: ", points
-        print "\nYou need atleast 1 point to continue the game."
         print "\nExpanded formula:", expanded_formula(random_fmla)
+        exp_calc= input("\nCalculate the expanded formula:")
         result = eval_expanded_formula(random_fmla)
-        print "The result is %s\n" % result
+        if int(exp_calc)== result:
+            print "\nYou won!"
+            points += 10
+            print "\nYou points so far are: ", points
+        else:
+            print "\nWrong, game over"
+            points -= 2
+            print "\nPoints:", points
+            print "\nour first lucky number is: ", lucky_num1(random_fmla)
+            print "\nYour second lucky number is: ", lucky_num2(random_fmla)
+            print "\nThis is the history of your wrong guesses.", history_of_guesses
+            
+            
+        
+        print "\nThe result is:" , result ########## need to hide from the user
         print
-        '''
-        if eval(expanded_formula(random_fmla))== int(exp_guess):
-                          points +=12
-                          print "\nCorrect!"
-                        
-                          
-        else: points -=2
-        print "\nGame over"
-        '''
+        
     else:
         print "\nYou have lost 2 points!"
         points += -2
         print "\nYour total points is now: ", points
-        print "Game over."
+        print "\nGame over."
         break
 
     
